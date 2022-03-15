@@ -1,4 +1,5 @@
-FROM debian:latest AS build
+FROM debian:bullseye-slim AS build
+
 
 RUN apt update
 RUN apt install -y curl git unzip xz-utils
@@ -17,5 +18,5 @@ COPY . /build/
 WORKDIR /build/
 RUN flutter build web
 
-FROM nginx
+FROM nginx:1.21.6-alpine
 COPY --from=build /build/build/web /usr/share/nginx/html
